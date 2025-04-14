@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>小聊天室</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        #messages {
+            border: 1px solid #ccc;
+            height: 300px;
+            overflow-y: scroll;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <h1>簡易聊天室</h1>
+
+
+    <div>
+        名字：<input type="text" id="username" placeholder="輸入你的名字">
+    </div>
+    <div id="messages"></div>
+
+
+    <input type="text" id="input" placeholder="輸入訊息...">
+    <button onclick="sendMessage()">送出</button>
+
+
+    <script>
+        const messages = document.getElementById('messages');
+        const input = document.getElementById('input');
+        const username = document.getElementById('username');
+
+
+        function sendMessage() {
+            if (input.value.trim() === '' || username.value.trim() === '') {
+                alert('請輸入名字和訊息！');
+                return;
+            }
+            const msg = `<b>${username.value}：</b> ${input.value}`;
+            const div = document.createElement('div');
+            div.innerHTML = msg;
+            messages.appendChild(div);
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight; // 自動捲到最下面
+        }
+    </script>
+
+
+</body>
+</html>
