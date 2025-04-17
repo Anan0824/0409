@@ -59,9 +59,9 @@
 
 <h1>欣賞這段影片吧！</h1>
 
-<!-- 影片 1 -->
+<!-- 動態顯示的影片區域 -->
 <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/o9DhvbqYzns?si=kWX5FBErwDbL0LXE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe id="video-frame" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <div class="rating">
         <button onclick="rateVideo(1, 'like')">👍 喜歡</button>
         <span id="like-count-1">0</span>
@@ -79,26 +79,6 @@
     </div>
 </div>
 
-<!-- 影片 2 -->
-<div class="video-container">
-    <iframe src="https://www.youtube.com/embed/nFQKvjM9HCw?si=IYz1Lsl8PYn7LoQJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <div class="rating">
-        <button onclick="rateVideo(2, 'like')">👍 喜歡</button>
-        <span id="like-count-2">0</span>
-        <button onclick="rateVideo(2, 'dislike')">👎 不喜歡</button>
-        <span id="dislike-count-2">0</span>
-    </div>
-    <div class="discussion">
-        <h3>討論區</h3>
-        <input type="text" id="message-2" placeholder="在此討論影片...">
-        <button onclick="postMessage(2)">送出留言</button>
-        <div id="messages-2"></div>
-    </div>
-    <div class="timer">
-        <p>倒數計時: <span id="countdown-2">60</span> 秒</p>
-    </div>
-</div>
-
 <!-- 影片清單 -->
 <h2>推薦影片</h2>
 <ul id="video-list">
@@ -108,8 +88,6 @@
     // 喜歡和不喜歡計數
     let likeCount1 = 0;
     let dislikeCount1 = 0;
-    let likeCount2 = 0;
-    let dislikeCount2 = 0;
 
     function rateVideo(videoId, rating) {
         if (videoId === 1) {
@@ -119,14 +97,6 @@
             } else if (rating === 'dislike') {
                 dislikeCount1++;
                 document.getElementById('dislike-count-1').textContent = dislikeCount1;
-            }
-        } else if (videoId === 2) {
-            if (rating === 'like') {
-                likeCount2++;
-                document.getElementById('like-count-2').textContent = likeCount2;
-            } else if (rating === 'dislike') {
-                dislikeCount2++;
-                document.getElementById('dislike-count-2').textContent = dislikeCount2;
             }
         }
     }
@@ -144,24 +114,6 @@
         }
     }
 
-    // 倒數計時器
-    function startCountdown(videoId) {
-        let countdownElement = document.getElementById(`countdown-${videoId}`);
-        let countdownTime = parseInt(countdownElement.textContent);
-        const timerInterval = setInterval(function() {
-            countdownTime--;
-            countdownElement.textContent = countdownTime;
-            if (countdownTime <= 0) {
-                clearInterval(timerInterval);
-                alert('倒數結束！準備抽獎或顯示其他內容！');
-            }
-        }, 1000);
-    }
-
-    // 開始倒數
-    startCountdown(1);
-    startCountdown(2);
-
     // 隨機推薦影片
     const videoLinks = [
         { title: '影片 1', url: 'https://www.youtube.com/watch?v=o9DhvbqYzns' },
@@ -176,19 +128,31 @@
         const shuffledVideos = videoLinks.sort(() => Math.random() - 0.5);
         const videoListElement = document.getElementById('video-list');
         videoListElement.innerHTML = ''; // 清空現有影片
-        shuffledVideos.forEach(video => {
+        shuffledVideos.forEach((video, index) => {
             const listItem = document.createElement('li');
             const link = document.createElement('a');
-            link.href = video.url;
+            link.href = "#";
             link.textContent = video.title;
-            link.target = '_blank';
+            link.onclick = function() {
+                changeVideo(index);
+            };
             listItem.appendChild(link);
             videoListElement.appendChild(listItem);
         });
     }
 
+    // 根據影片ID改變iframe影片
+    function changeVideo(index) {
+        const videoFrame = document.getElementById('video-frame');
+        videoFrame.src = `https://www.youtube.com/embed/${videoLinks[index].url.split('v=')[1]}`;
+    }
+
     // 初始化隨機影片
     shuffleVideos();
+
+    // 初始化影片為第一個隨機選擇的影片
+    changeVideo(0);
+
 </script>
 
 </body>
