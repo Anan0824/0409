@@ -55,6 +55,9 @@
         });
 
         function draw() {
+            // 如果尚未開始移動，先不要畫圖（避免一開始就撞到自己）
+            if (!direction) return;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             for (let i = 0; i < snake.length; i++) {
@@ -113,4 +116,3 @@
     </script>
 </body>
 </html>
-
