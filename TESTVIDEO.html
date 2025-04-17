@@ -64,7 +64,9 @@
     <iframe src="https://www.youtube.com/embed/o9DhvbqYzns?si=kWX5FBErwDbL0LXE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <div class="rating">
         <button onclick="rateVideo(1, 'like')">👍 喜歡</button>
+        <span id="like-count-1">0</span>
         <button onclick="rateVideo(1, 'dislike')">👎 不喜歡</button>
+        <span id="dislike-count-1">0</span>
     </div>
     <div class="discussion">
         <h3>討論區</h3>
@@ -82,7 +84,9 @@
     <iframe src="https://www.youtube.com/embed/nFQKvjM9HCw?si=IYz1Lsl8PYn7LoQJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <div class="rating">
         <button onclick="rateVideo(2, 'like')">👍 喜歡</button>
+        <span id="like-count-2">0</span>
         <button onclick="rateVideo(2, 'dislike')">👎 不喜歡</button>
+        <span id="dislike-count-2">0</span>
     </div>
     <div class="discussion">
         <h3>討論區</h3>
@@ -104,9 +108,30 @@
 </ul>
 
 <script>
-    // 評分系統
+    // 喜歡和不喜歡計數
+    let likeCount1 = 0;
+    let dislikeCount1 = 0;
+    let likeCount2 = 0;
+    let dislikeCount2 = 0;
+
     function rateVideo(videoId, rating) {
-        alert(`影片 ${videoId} 被標註為: ${rating}`);
+        if (videoId === 1) {
+            if (rating === 'like') {
+                likeCount1++;
+                document.getElementById('like-count-1').textContent = likeCount1;
+            } else if (rating === 'dislike') {
+                dislikeCount1++;
+                document.getElementById('dislike-count-1').textContent = dislikeCount1;
+            }
+        } else if (videoId === 2) {
+            if (rating === 'like') {
+                likeCount2++;
+                document.getElementById('like-count-2').textContent = likeCount2;
+            } else if (rating === 'dislike') {
+                dislikeCount2++;
+                document.getElementById('dislike-count-2').textContent = dislikeCount2;
+            }
+        }
     }
 
     // 討論區留言
