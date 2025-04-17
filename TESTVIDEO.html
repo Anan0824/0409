@@ -14,11 +14,54 @@
             height: 315px;
             border: none;
         }
+        .video-container {
+            margin-bottom: 20px;
+        }
+        .rating {
+            margin-top: 10px;
+        }
+        .rating button {
+            font-size: 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <h1>欣賞這段影片吧！</h1>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/o9DhvbqYzns?si=kWX5FBErwDbL0LXE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/nFQKvjM9HCw?si=IYz1Lsl8PYn7LoQJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<h1>欣賞這段影片吧！</h1>
+
+<!-- 影片 1 -->
+<div class="video-container">
+    <iframe src="https://www.youtube.com/embed/o9DhvbqYzns?si=kWX5FBErwDbL0LXE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="rating">
+        <button onclick="rateVideo(1, 'like')">👍 喜歡</button>
+        <button onclick="rateVideo(1, 'dislike')">👎 不喜歡</button>
+    </div>
+</div>
+
+<!-- 影片 2 -->
+<div class="video-container">
+    <iframe src="https://www.youtube.com/embed/nFQKvjM9HCw?si=IYz1Lsl8PYn7LoQJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="rating">
+        <button onclick="rateVideo(2, 'like')">👍 喜歡</button>
+        <button onclick="rateVideo(2, 'dislike')">👎 不喜歡</button>
+    </div>
+</div>
+
+<!-- 影片清單 -->
+<h2>推薦影片</h2>
+<ul>
+    <li><a href="https://www.youtube.com/watch?v=o9DhvbqYzns" target="_blank">影片 1</a></li>
+    <li><a href="https://www.youtube.com/watch?v=nFQKvjM9HCw" target="_blank">影片 2</a></li>
+    <li><a href="https://www.youtube.com/watch?v=5XyR2IFjk3s" target="_blank">影片 3</a></li>
+</ul>
+
+<script>
+    function rateVideo(videoId, rating) {
+        alert(`影片 ${videoId} 被標註為: ${rating}`);
+    }
+</script>
+
 </body>
 </html>
