@@ -102,9 +102,6 @@
 <!-- 影片清單 -->
 <h2>推薦影片</h2>
 <ul id="video-list">
-    <li><a href="https://www.youtube.com/watch?v=o9DhvbqYzns" target="_blank">影片 1</a></li>
-    <li><a href="https://www.youtube.com/watch?v=nFQKvjM9HCw" target="_blank">影片 2</a></li>
-    <li><a href="https://www.youtube.com/watch?v=5XyR2IFjk3s" target="_blank">影片 3</a></li>
 </ul>
 
 <script>
@@ -164,6 +161,34 @@
     // 開始倒數
     startCountdown(1);
     startCountdown(2);
+
+    // 隨機推薦影片
+    const videoLinks = [
+        { title: '影片 1', url: 'https://www.youtube.com/watch?v=o9DhvbqYzns' },
+        { title: '影片 2', url: 'https://www.youtube.com/watch?v=nFQKvjM9HCw' },
+        { title: '影片 3', url: 'https://www.youtube.com/watch?v=5XyR2IFjk3s' },
+        { title: '影片 4', url: 'https://www.youtube.com/watch?v=3RZn9M09uyk' },
+        { title: '影片 5', url: 'https://www.youtube.com/watch?v=J2y9EvcPZZM' }
+    ];
+
+    // 隨機排序影片
+    function shuffleVideos() {
+        const shuffledVideos = videoLinks.sort(() => Math.random() - 0.5);
+        const videoListElement = document.getElementById('video-list');
+        videoListElement.innerHTML = ''; // 清空現有影片
+        shuffledVideos.forEach(video => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = video.url;
+            link.textContent = video.title;
+            link.target = '_blank';
+            listItem.appendChild(link);
+            videoListElement.appendChild(listItem);
+        });
+    }
+
+    // 初始化隨機影片
+    shuffleVideos();
 </script>
 
 </body>
