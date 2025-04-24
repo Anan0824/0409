@@ -48,15 +48,17 @@
 
 
             // 取第一個 time 節點的天氣現象與舒適度
-            const minT = loc.weatherElement.find(e => e.elementName === 'MinT');
+            const minT = loc.weatherElement.find(e => e.elementName === 'CI');
+            const ciDesc = ci && ci.time && ci.time[0] ? ci.time[0].parameter.parameterName : '—';
             const t = loc.weatherElement.find(e => e.elementName === 'PoP');
             const desc = t && t.time && t.time[0] ? t.time[0].parameter.parameterName : '—';
 
 
+            const pCI = document.createElement('p');
             const pPop = document.createElement('p');
-            pMinT.textContent = `最低溫度：${minTDesc}°C`;
+            pCI.textContent = `舒適度：${ciDesc}`;
             pPop.textContent = `降雨機率：${desc}%`;
-            item.appendChild(pMinT);
+            item.appendChild(pCI);
             item.appendChild(pPop)
 
 
