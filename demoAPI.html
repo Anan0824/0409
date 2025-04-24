@@ -48,21 +48,16 @@
 
 
             // 取第一個 time 節點的天氣現象與舒適度
-            // 取降雨機率
-  const t = loc.weatherElement.find(e => e.elementName === 'PoP');
-  const desc = t && t.time && t.time[0] ? t.time[0].parameter.parameterName : '—';
-  const pPop = document.createElement('p');
-  pPop.textContent = `降雨機率：${desc}%`; // 降雨機率加上百分比符號
-  item.appendChild(pPop);
+            const t = loc.weatherElement.find(e => e.elementName === 'PoP');
+            const minT = loc.weatherElement.find(e => e.elementName === 'MinT');
+            const desc = t && t.time && t.time[0] ? t.time[0].parameter.parameterName : '—';
 
 
-            // 取最低溫度
-  const minT = loc.weatherElement.find(e => e.elementName === 'MinT');
-  const minTDesc = minT && minT.time && minT.time[0] ? minT.time[0].parameter.parameterName : '—';
-  const pMinT = document.createElement('p');
-  pMinT.textContent = `最低溫度：${minTDesc}°C`; // 顯示最低溫度
-  item.appendChild(pMinT);
-
+            const p = document.createElement('p');
+            pPop.textContent = `降雨機率：${desc}%`; 
+            pMinT.textContent = `最低溫度：${minTDesc}°C`; // 顯示最低溫度
+            item.appendChild(pPop);
+            item.appendChild(pMinT);
 
 
             weatherList.appendChild(item);
