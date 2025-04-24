@@ -48,12 +48,12 @@
 
 
             // 取第一個 time 節點的天氣現象與舒適度
-            const t = loc.weatherElement.find(e => e.elementName === 'Wx');
+            const t = loc.weatherElement.find(e => e.elementName === 'PoP');
             const desc = t && t.time && t.time[0] ? t.time[0].parameter.parameterName : '—';
 
 
             const p = document.createElement('p');
-            p.textContent = `天氣：${desc}`;
+            p.textContent = `降雨機率：${desc}`;
             item.appendChild(p);
 
 
