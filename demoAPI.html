@@ -48,16 +48,13 @@
 
 
             // 取第一個 time 節點的天氣現象與舒適度
-            const today = new Date().toISOString().split('T')[0]; // 今天日期 e.g. "2025-04-24"
+            const wx = loc.weatherElement.find(e => e.elementName === 'Wx');
+const wxDesc = wx && wx.time && wx.time[0] ? wx.time[0].parameter.parameterName : '—';
 
-const wx = loc.weatherElement.find(e => e.elementName === 'Wx');
-const wxTime = wx?.time?.find(t => t.startTime.startsWith(today));
-const wxDesc = wxTime ? wxTime.parameter.parameterName : '—';
+const pop = loc.weatherElement.find(e => e.elementName === 'PoP'); 
+const popValue = pop && pop.time && pop.time[0] ? pop.time[0].parameter.parameterName + '%' : '—';
 
-const pop = loc.weatherElement.find(e => e.elementName === 'PoP');
-const popTime = pop?.time?.find(t => t.startTime.startsWith(today));
-const popValue = popTime ? popTime.parameter.parameterName + '%' : '—';
-
+// 顯示天氣與降雨機率
 const pWx = document.createElement('p');
 pWx.textContent = `天氣：${wxDesc}`;
 item.appendChild(pWx);
@@ -65,7 +62,6 @@ item.appendChild(pWx);
 const pPop = document.createElement('p');
 pPop.textContent = `降雨機率：${popValue}`;
 item.appendChild(pPop);
-
 
 
 
