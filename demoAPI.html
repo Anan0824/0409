@@ -48,22 +48,33 @@
 
 
             // 取第一個 time 節點的天氣現象與舒適度
-            const ci = loc.weatherElement.find(e => e.elementName === 'CI');
-            const ciDesc = ci && ci.time && ci.time[0] ? ci.time[0].parameter.parameterName : '—';
-            const t = loc.weatherElement.find(e => e.elementName === 'PoP');
-            const desc = t && t.time && t.time[0] ? t.time[0].parameter.parameterName : '—';
+             // 舒適度 CI
+  const ci = loc.weatherElement.find(e => e.elementName === 'CI');
+  const ciDesc = ci && ci.time && ci.time[0] ? ci.time[0].parameter.parameterName : '—';
 
+  // 降雨機率 PoP
+  const pop = loc.weatherElement.find(e => e.elementName === 'PoP');
+  const popDesc = pop && pop.time && pop.time[0] ? pop.time[0].parameter.parameterName : '—';
 
-            const pCI = document.createElement('p');
-            const pPop = document.createElement('p');
-            pCI.textContent = `舒適度：${ciDesc}`;
-            pPop.textContent = `降雨機率：${desc}%`;
-            item.appendChild(pCI);
-            item.appendChild(pPop)
+  // 最低溫度 MinT
+  const minT = loc.weatherElement.find(e => e.elementName === 'MinT');
+  const minTDesc = minT && minT.time && minT.time[0] ? minT.time[0].parameter.parameterName : '—';
 
+  // 加入內容
+  const pCI = document.createElement('p');
+  const pPop = document.createElement('p');
+  const pMinT = document.createElement('p');
 
-            weatherList.appendChild(item);
-          });
+  pCI.textContent = `舒適度：${ciDesc}`;
+  pPop.textContent = `降雨機率：${popDesc}%`;
+  pMinT.textContent = `最低溫度：${minTDesc}°C`;
+
+  item.appendChild(pCI);
+  item.appendChild(pPop);
+  item.appendChild(pMinT);
+
+  weatherList.appendChild(item);
+});
         } catch (err) {
           weatherList.textContent = '載入失敗：' + err.message;
         }
