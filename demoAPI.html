@@ -18,15 +18,8 @@
     <script>
       const apiUrl = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-FE4AD205-4642-40AD-B7FD-336A53D1ED2A';
       const weatherList = document.getElementById('weatherList');
-    
-      // ➕ 安全地取得某個 element 的第一個時間區段資料
-      function getElementValue(elementArray, name) {
-        const el = elementArray.find(e => e.elementName === name);
-        return el && el.time && el.time.length > 0 && el.time[0].parameter
-          ? el.time[0].parameter.parameterName
-          : '—';
-      }
-    
+
+
       async function loadWeather() {
         try {
           const resp = await fetch(apiUrl);
@@ -37,45 +30,42 @@
             weatherList.textContent = '未取得任何天氣資料';
             return;
           }
-    
+
+
           // 清空載入中提示
           weatherList.innerHTML = '';
-    
+
+
           // 顯示每個地區的天氣簡述 (第一時段)
           locations.forEach(loc => {
             const item = document.createElement('div');
             item.className = 'weather-item';
-    
+
+
             const area = document.createElement('h3');
             area.textContent = loc.locationName;
             item.appendChild(area);
-    
-            // ➕ 取出各項氣象資料
-            const ciDesc = getElementValue(loc.weatherElement, 'CI');    // 舒適度
-            const popDesc = getElementValue(loc.weatherElement, 'PoP');  // 降雨機率
-            const minTDesc = getElementValue(loc.weatherElement, 'MinT');// 最低溫度
-    
-            const pCI = document.createElement('p');
-            const pPop = document.createElement('p');
-            const pMinT = document.createElement('p');
-    
-            pCI.textContent = `舒適度：${ciDesc}`;
-            pPop.textContent = `降雨機率：${popDesc}%`;
-            pMinT.textContent = `最低溫度：${minTDesc}°C`;
-    
-            item.appendChild(pCI);
-            item.appendChild(pPop);
-            item.appendChild(pMinT);
-    
+
+
+            // 取第一個 time 節點的天氣現象與舒適度
+            const t = loc.weatherElement.find(e => e.elementName === 'Wx');
+            const desc = t && t.time && t.time[0] ? t.time[0].parameter.parameterName : '—';
+
+
+            const p = document.createElement('p');
+            p.textContent = `天氣：${desc}`;
+            item.appendChild(p);
+
+
             weatherList.appendChild(item);
           });
         } catch (err) {
           weatherList.textContent = '載入失敗：' + err.message;
         }
       }
-    
+
+
       loadWeather();
     </script>
-    
   </body>
 </html>
