@@ -49,14 +49,20 @@
 
             // 取第一個 time 節點的天氣現象與舒適度
             const wx = loc.weatherElement.find(e => e.elementName === 'Wx');
-            const wxDesc = wx && wx.time && wx.time[0] ? wx.time[0].parameter.parameterName : '—';
+const wxDesc = wx && wx.time && wx.time[0] ? wx.time[0].parameter.parameterName : '—';
 
-            const pop = loc.weatherElement.find(e => e.elementName === 'PoP');
-            const popValue = pop && pop.time && pop.time[0] ? pop.time[0].parameter.parameterName + '%' : '—';
+const pop = loc.weatherElement.find(e => e.elementName === 'PoP');
+const popValue = pop && pop.time && pop.time[0] ? pop.time[0].parameter.parameterName + '%' : '—';
 
-            const p = document.createElement('p');
-            p.textContent = `天氣：${wxDesc}，降雨機率：${popValue}`;
-            item.appendChild(p);
+// 建立兩個段落來分別顯示
+const pWx = document.createElement('p');
+pWx.textContent = `天氣：${wxDesc}`;
+item.appendChild(pWx);
+
+const pPop = document.createElement('p');
+pPop.textContent = `降雨機率：${popValue}`;
+item.appendChild(pPop);
+
 
 
 
